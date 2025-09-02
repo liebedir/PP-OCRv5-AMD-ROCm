@@ -1,0 +1,1 @@
+# PP-OCRv5-AMD-ROCm
