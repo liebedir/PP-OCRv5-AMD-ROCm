@@ -2,15 +2,15 @@
 
 
 ## Introduction
-PP-OCRv5-AMD-ROCm is a demo to show how to use the AMD GPU(whatever the iGPU or dGPU) to do Baidu Paddleocr model inference.(https://github.com/PaddlePaddle/PaddleOCR)
+**PP-OCRv5-AMD-ROCm** is a demo that shows how to run [PP-OCRv5 model](https://github.com/PaddlePaddle/PaddleOCR) inference on AMD GPUs, including both integrated (iGPU) and dedicated (dGPU) cards by [ROCm](https://github.com/ROCm/ROCm)
 
 
 ## Installation
 The most necessary dependencies for deploying onnx model on AMD GPU are:
-    ROCm
-    ROCm-onnxruntime
+- [ROCm](https://github.com/ROCm/ROCm)
+- [ROCm-onnxruntime](https://rocm.docs.amd.com/projects/radeon/en/latest/docs/install/native_linux/install-onnx.html)
 
-1, Get the onnx model, please follow the steps in "How to export PP-OCRv5 model.md" to obtain the onnx models.
+1, To obtain the ONNX models for PP-OCRv5, please follow the steps outlined in the guide: [*How to export PP-OCRv5 model to ONNX format*](./How%20to%20export%20PP-OCRv5%20model.md)
 
 2, Please note the IR version of the onnx model, which will determine which verion of ROCm needs to be installed.
 <div style="text-align: center">
@@ -29,7 +29,7 @@ The most necessary dependencies for deploying onnx model on AMD GPU are:
 
 5, Now we know which ROCm and Onnxruntime-ROCm version should be installed.
 
-6, Install ROCm, follow the link https://rocm.docs.amd.com/projects/install-on-linux/en/latest/install/quick-start.html to install the ROCm. We need to change the url https://repo.radeon.com/amdgpu-install/6.4.3/ubuntu/jammy/amdgpu-install_6.4.60403-1_all.deb to install the ROCm you want.
+6, Install ROCm, follow [the link]( https://rocm.docs.amd.com/projects/install-on-linux/en/latest/install/quick-start.html) to install the ROCm. We need to change the url https://repo.radeon.com/amdgpu-install/6.4.3/ubuntu/jammy/amdgpu-install_6.4.60403-1_all.deb to install the ROCm you want.
 <div style="text-align: center">
     <image src = "./images/rocm-version.png">
 </div>
@@ -40,14 +40,24 @@ The most necessary dependencies for deploying onnx model on AMD GPU are:
     <image src = "./images/HSA.png">
 </div>
 
-8, Install the onnxruntime-rocm. pip3 install onnxruntime-rocm -f https://repo.radeon.com/rocm/manylinux/rocm-rel-x.x.x/ Set the url based the ROCm verison installed. Please refer to this link https://rocm.docs.amd.com/projects/radeon/en/latest/docs/install/native_linux/install-onnx.html
+8, Install the onnxruntime-rocm. 
+```bash
+pip3 install onnxruntime-rocm -f https://repo.radeon.com/rocm/manylinux/rocm-rel-x.x.x/
+```
 
-9, Finally, you can inference the PaddleOCR models on your AMD iGPU or dGPU.
-use GPU:
+Set the url based the ROCm verison installed. Please refer to [this link]( https://rocm.docs.amd.com/projects/radeon/en/latest/docs/install/native_linux/install-onnx.html)
+
+9, Finally, you can run [PP-OCRv5 model](https://github.com/PaddlePaddle/PaddleOCR) inference on AMD GPUs.
+```bash
+# use GPU:
 python main.py --image_dir images/paddleocr_structure.png --det_model_dir ../PP-OCRv5_server_det_infer/inference.onnx --det_model_device GPU --rec_model_dir ../PP-OCRv5_server_rec_infer/inference.onnx --rec_model_device GPU
 
-use CPU:
+#use CPU:
 python main.py --image_dir images/paddleocr_structure.png --det_model_dir ../PP-OCRv5_server_det_infer/inference.onnx --det_model_device CPU --rec_model_dir ../PP-OCRv5_server_rec_infer/inference.onnx --rec_model_device CPU
+```
 <div style="text-align: center">
     <image src = "./images/GPU-usage.png">
 </div>
+
+## Acknowledgment
+This project is based on the PP-OCRv5 model from [PaddleOCR](https://github.com/PaddlePaddle/PaddleOCR) and most of inference code comes from [OnnxOCR](https://github.com/jingsongliujing/OnnxOCR). We would like to thank the PaddleOCR team and @[jingsongliujing](https://github.com/jingsongliujing) for their contributions to the OCR community.
