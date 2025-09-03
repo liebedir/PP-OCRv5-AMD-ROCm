@@ -1,11 +1,11 @@
 import time, cv2
 
-from ppocrv5_ov.predict_system import TextSystem
-from ppocrv5_ov.utils import infer_args as init_args
-from ppocrv5_ov.utils import str2bool, draw_ocr
+from ppocrv5_rocm.predict_system import TextSystem
+from ppocrv5_rocm.utils import infer_args as init_args
+from ppocrv5_rocm.utils import str2bool, draw_ocr
 import argparse
 
-class PPOCRv4_OV(TextSystem):
+class PPOCRv4_rocm(TextSystem):
     def __init__(self, args):
         self.args = args
         # Initialize all the models
@@ -63,7 +63,7 @@ def sav2Img(org_img, result, name="draw3_ocr.jpg"):
 
 def main(args):
     # Change the default values of the arguments in the utils.infer_args function
-    model = PPOCRv4_OV(args)
+    model = PPOCRv4_rocm(args)
 
     img = cv2.imread(args.image_dir)
 

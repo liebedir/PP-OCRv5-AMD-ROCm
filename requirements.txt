@@ -1,4 +1,4 @@
-openvino
+onnx-rocm
 opencv-python
 Pillow
 shapely
